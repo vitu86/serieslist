@@ -1,0 +1,44 @@
+
+attributes:
+  ORGANIZATIONNAME: "Vitor Costa"
+
+options:
+  preGenCommand: swiftgen
+  developmentLanguage: "en-US"
+  createIntermediateGroups: true
+  deploymentTarget:
+    iOS: "10.0"
+
+name: SeriesList
+
+targets:
+  SeriesList:
+    type: application
+    platform: iOS
+
+    info:
+      path: SeriesList/Supporting Files/Info.plist
+      properties:
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        UILaunchStoryboardName: LaunchScreen
+        UIRequiresFullScreen: true
+        CFBundleDisplayName: "Series List"
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+
+    sources: 
+      - path: SeriesList
+        excludes:
+          - "**/.gitkeep"
+
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: costa.vitor.SeriesList
+        MARKETING_VERSION: "0.0.1" # App's Version
+        CURRENT_PROJECT_VERSION: "1" # Build number
+        DEVELOPMENT_TEAM: 87JB6QS95U
+
+    preBuildScripts:
+      - name: Swiftgen
+        script: swiftgen
+    

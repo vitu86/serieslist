@@ -20,7 +20,9 @@ class AppCoordinator: NavigationCoordinator<AppRoute> {
     override func prepareTransition(for route: AppRoute) -> NavigationTransition {
         switch route {
         case .list:
-            return .set([UIViewController()])
+            let viewModel = ListViewModel(router: weakRouter)
+            let controller = ListController(viewModel: viewModel)
+            return .set([controller])
         }
     }
 }

@@ -8,10 +8,10 @@ target 'SeriesList' do
   # Pods for Chuck Norris Facts
   pod 'RxSwift'
   pod 'RxCocoa'
-  pod 'Alamofire', '= 5.0.0-rc.2'
-  pod 'AlamofireObjectMapper'
+  pod 'Alamofire'
   pod 'XCoordinator'
-  pod "TinyConstraints"
+  pod 'TinyConstraints'
   pod 'SwiftLint'
+  pod 'AlamofireImage'
 
 end

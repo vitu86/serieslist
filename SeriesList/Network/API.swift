@@ -58,18 +58,18 @@ class API {
         }
     }
 
-    func getTVShowDetail(with id: Int64) -> Observable<TVShow> {
+    func getEpisodes(from show: TVShow) -> Observable<[Episode]> {
         Observable.create { [weak self] observer in
             guard var listShowsURL = self?.listShowsURL else {
                 return Disposables.create()
             }
 
-            listShowsURL += "/\(id)"
+            listShowsURL += "/\(show.id)/episodes"
 
             let request = AF.request(listShowsURL).responseJSON { response in
                 switch response.result {
                 case .success:
-                    if let data = response.data, let result = try? self?.decoder.decode(TVShow.self, from: data) {
+                    if let data = response.data, let result = try? self?.decoder.decode([Episode].self, from: data) {
                         observer.onNext(result)
                         observer.onCompleted()
                         return
@@ -87,5 +87,4 @@ class API {
             }
         }
     }
-
 }

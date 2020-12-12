@@ -42,7 +42,7 @@ class ListController: BaseController {
 }
 
 extension ListController: ListViewDelegate {
-    func showDetailOfShow(with id: Int64) {
-        viewModel.triggerToDetail(with: id)
+    func showDetailOfShow(with show: TVShow) {
+        viewModel.triggerToDetail(with: show)
     }
 }

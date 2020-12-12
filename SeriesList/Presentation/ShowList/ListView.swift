@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ListViewDelegate: AnyObject {
-    func showDetailOfShow(with id: Int64)
+    func showDetailOfShow(with show: TVShow)
 }
 
 class ListView: BaseView {
@@ -48,7 +48,7 @@ class ListView: BaseView {
 extension ListView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.showDetailOfShow(with: source[indexPath.row].id)
+        delegate?.showDetailOfShow(with: source[indexPath.row])
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

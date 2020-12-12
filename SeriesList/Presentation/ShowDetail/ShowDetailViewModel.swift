@@ -12,14 +12,14 @@ import XCoordinator
 class ShowDetailViewModel {
 
     private let router: WeakRouter<AppRoute>
-    private let showId: Int64
+    private(set) var show: TVShow
 
-    init(router: WeakRouter<AppRoute>, showId: Int64) {
+    init(router: WeakRouter<AppRoute>, show: TVShow) {
         self.router = router
-        self.showId = showId
+        self.show = show
     }
 
-    func getTVShowDetailst() -> Observable<TVShow> {
-        API.shared.getTVShowDetail(with: showId)
+    func getEpisodesList() -> Observable<[Episode]> {
+        API.shared.getEpisodes(from: show)
     }
 }

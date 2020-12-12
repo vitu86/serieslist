@@ -57,6 +57,21 @@ class ShowDetailView: BaseView {
         return label
     }()
 
+    private let episodesLabel: UILabel = {
+        let label = UILabel()
+        label.text = L10n.DetailsScreen.episodes
+        label.textColor = .black
+        label.numberOfLines = 0
+        label.font = .boldSystemFont(ofSize: 20)
+        return label
+    }()
+
+    private lazy var episodesList: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        return stack
+    }()
+
     override init() {
         super.init()
         backgroundColor = .white
@@ -82,6 +97,17 @@ class ShowDetailView: BaseView {
         schedule.text = mountSchedule(with: show.schedule)
     }
 
+    func updateEpisodes(with list: [Episode]) {
+        list.forEach { episode in
+            episodesList.addArrangedSubview(
+                EpisodeListItem(title: episode.name, {
+                        print(episode.name)
+                    }
+                )
+            )
+        }
+    }
+
     private func setupUI() {
         addSubview(container)
         container.addSubview(image)
@@ -89,6 +115,8 @@ class ShowDetailView: BaseView {
         container.addSubview(genres)
         container.addSubview(schedule)
         container.addSubview(summary)
+        container.addSubview(episodesLabel)
+        container.addSubview(episodesList)
 
         container.edgesToSuperview(usingSafeArea: true)
         container.width(to: view)
@@ -100,12 +128,16 @@ class ShowDetailView: BaseView {
         title.horizontalToSuperview(insets: .horizontal(12.0))
         genres.horizontalToSuperview(insets: .horizontal(12.0))
         schedule.horizontalToSuperview(insets: .horizontal(12.0))
-        summary.edgesToSuperview(excluding: .top, insets: .uniform(12.0))
+        summary.horizontalToSuperview(insets: .horizontal(12.0))
+        episodesLabel.horizontalToSuperview(insets: .horizontal(12.0))
+        episodesList.edgesToSuperview(excluding: .top, insets: .uniform(12.0))
 
         title.topToBottom(of: image, offset: 12.0)
         genres.topToBottom(of: title, offset: 6.0)
         schedule.topToBottom(of: genres, offset: 6.0)
         summary.topToBottom(of: schedule, offset: 12.0)
+        episodesLabel.topToBottom(of: summary, offset: 12.0)
+        episodesList.topToBottom(of: episodesLabel, offset: 6.0)
     }
 
     private func getHTMLText(for value: String) -> NSAttributedString? {

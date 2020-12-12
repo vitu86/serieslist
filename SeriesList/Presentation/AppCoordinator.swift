@@ -10,7 +10,7 @@ import XCoordinator
 
 enum AppRoute: Route {
     case showList
-    case showDetail(showId: Int64)
+    case showDetail(show: TVShow)
 }
 
 class AppCoordinator: NavigationCoordinator<AppRoute> {
@@ -25,8 +25,8 @@ class AppCoordinator: NavigationCoordinator<AppRoute> {
             let controller = ListController(viewModel: viewModel)
             return .set([controller])
 
-        case let .showDetail(showId):
-            let viewModel = ShowDetailViewModel(router: weakRouter, showId: showId)
+        case let .showDetail(show):
+            let viewModel = ShowDetailViewModel(router: weakRouter, show: show)
             let controller = ShowDetailController(viewModel: viewModel)
             return .push(controller)
         }

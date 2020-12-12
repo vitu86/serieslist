@@ -26,14 +26,16 @@ class ShowDetailController: BaseController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadDetails()
+        title = viewModel.show.name
+        rootView.update(with: viewModel.show)
+        getEpisodes()
     }
 
-    private func loadDetails() {
-        viewModel.getTVShowDetailst()
+    private func getEpisodes() {
+        viewModel.getEpisodesList()
+            .catchErrorJustReturn([])
             .bind { [weak self] in
-                self?.title = $0.name
-                self?.rootView.update(with: $0)
+                self?.rootView.updateEpisodes(with: $0)
             }
             .disposed(by: bag)
     }

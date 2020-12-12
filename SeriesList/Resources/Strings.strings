@@ -8,3 +8,7 @@
 
 // MARK: - List Screen -
 "ListScreen.Title" = "List";
+
+
+// MARK: - Details Screen -
+"DetailsScreen.Episodes" = "Episodes";

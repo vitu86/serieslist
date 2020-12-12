@@ -33,8 +33,8 @@ class ListController: BaseController {
     private func loadList() {
         viewModel.getTVShowsList()
             .catchErrorJustReturn([])
-            .bind {
-                $0.forEach { print($0.name) }
+            .bind { [weak self] in
+                self?.rootView.update(with: $0)
             }
             .disposed(by: bag)
     }

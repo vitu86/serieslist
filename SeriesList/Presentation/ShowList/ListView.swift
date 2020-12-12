@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ListViewDelegate: AnyObject {
+    func showDetailOfShow(with id: Int64)
+}
+
 class ListView: BaseView {
 
     private var source: [TVShow] = []
@@ -20,6 +24,8 @@ class ListView: BaseView {
         collection.register(ListViewCollectionCell.self, forCellWithReuseIdentifier: ListViewCollectionCell.description())
         return collection
     }()
+
+    weak var delegate: ListViewDelegate?
 
     override init() {
         super.init()
@@ -42,7 +48,7 @@ class ListView: BaseView {
 extension ListView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(source[indexPath.row].name)
+        delegate?.showDetailOfShow(with: source[indexPath.row].id)
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

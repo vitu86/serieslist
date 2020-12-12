@@ -21,4 +21,7 @@ class ListViewModel {
         API.shared.getTVShowsList()
     }
 
+    func triggerToDetail(with id: Int64){
+        router.trigger(.showDetail(showId: id))
+    }
 }

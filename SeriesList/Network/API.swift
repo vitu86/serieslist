@@ -17,6 +17,7 @@ class API {
     }
 
     static let shared = API()
+
     private init() {}
 
     private let decoder: JSONDecoder = {
@@ -37,18 +38,47 @@ class API {
 
             let request = AF.request(listShowsURL).responseJSON { response in
                 switch response.result {
-                    case .success:
-                        if let data = response.data,
-                           let result = try? self?.decoder.decode([TVShow].self, from: data) {
-                            observer.onNext(result)
-                            observer.onCompleted()
-                            return
-                        }
+                case .success:
+                    if let data = response.data, let result = try? self?.decoder.decode([TVShow].self, from: data) {
+                        observer.onNext(result)
+                        observer.onCompleted()
+                        return
+                    }
 
-                        observer.onError(APIError.decode)
+                    observer.onError(APIError.decode)
 
-                    case .failure:
-                        observer.onError(APIError.generic)
+                case .failure:
+                    observer.onError(APIError.generic)
+                }
+            }
+
+            return Disposables.create {
+                request.cancel()
+            }
+        }
+    }
+
+    func getTVShowDetail(with id: Int64) -> Observable<TVShow> {
+        Observable.create { [weak self] observer in
+            guard var listShowsURL = self?.listShowsURL else {
+                return Disposables.create()
+            }
+
+            listShowsURL += "/\(id)"
+
+            let request = AF.request(listShowsURL).responseJSON { response in
+                switch response.result {
+                case .success:
+                    if let data = response.data, let result = try? self?.decoder.decode(TVShow.self, from: data) {
+                        observer.onNext(result)
+                        observer.onCompleted()
+                        return
+                    }
+
+                    observer.onError(APIError.decode)
+
+                case .failure:
+                    observer.onError(APIError.generic)
                 }
             }
 

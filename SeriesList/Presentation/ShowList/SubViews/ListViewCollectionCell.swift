@@ -26,7 +26,7 @@ class ListViewCollectionCell: UICollectionViewCell {
     }()
 
     override init(frame: CGRect) {
-        super.init(frame: .zero)
+        super.init(frame: frame)
 
         backgroundColor = .white
         contentView.backgroundColor = .white

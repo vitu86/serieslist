@@ -22,6 +22,7 @@ class ListController: BaseController {
 
     override func loadView() {
         view = rootView
+        rootView.delegate = self
     }
 
     override func viewDidLoad() {
@@ -37,5 +38,11 @@ class ListController: BaseController {
                 self?.rootView.update(with: $0)
             }
             .disposed(by: bag)
+    }
+}
+
+extension ListController: ListViewDelegate {
+    func showDetailOfShow(with id: Int64) {
+        viewModel.triggerToDetail(with: id)
     }
 }

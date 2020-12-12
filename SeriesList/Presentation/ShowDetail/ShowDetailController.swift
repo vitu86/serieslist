@@ -31,10 +31,9 @@ class ShowDetailController: BaseController {
 
     private func loadDetails() {
         viewModel.getTVShowDetailst()
-            .catchErrorJustReturn(TVShow(id: 0, name: "", image: Image(medium: "", original: "")))
             .bind { [weak self] in
-                print($0.name)
                 self?.title = $0.name
+                self?.rootView.update(with: $0)
             }
             .disposed(by: bag)
     }

@@ -10,9 +10,17 @@ struct TVShow: Decodable {
     let id: Int64
     let name: String
     let image: Image
+    let genres: [String]
+    let summary: String
+    let schedule: Schedule
 }
 
 struct Image: Decodable {
     let medium: String
     let original: String
+}
+
+struct Schedule: Decodable {
+    let time: String
+    let days: [String]
 }

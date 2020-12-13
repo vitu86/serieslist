@@ -117,8 +117,7 @@ class ShowDetailView: BaseView {
             }
             episodesList.addArrangedSubview(
                 EpisodeListItem(
-                    title: episode.name,
-                    {
+                    title: episode.name, {
                         self?.delegate?.showEpisode(episode)
                     }
                 )

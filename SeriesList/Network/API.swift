@@ -29,6 +29,7 @@ class API {
     private let baseURL = "http://api.tvmaze.com"
 
     private lazy var listShowsURL = baseURL + "/shows"
+    private lazy var searchShowsURL = baseURL + "/search/shows"
 
     private var currentPage = 0
     private(set) var hasMorepage = true
@@ -76,6 +77,38 @@ class API {
                 case .success:
                     if let data = response.data, let result = try? self?.decoder.decode([Episode].self, from: data) {
                         observer.onNext(result)
+                        observer.onCompleted()
+                        return
+                    }
+
+                    observer.onError(APIError.decode)
+
+                case .failure:
+                    observer.onError(APIError.generic)
+                }
+            }
+
+            return Disposables.create {
+                request.cancel()
+            }
+        }
+    }
+
+    func searchForShow(with query: String) -> Observable<[TVShow]> {
+        Observable.create { [weak self] observer in
+            guard let searchShowsURL = self?.searchShowsURL else {
+                return Disposables.create()
+            }
+
+            let request = AF.request(searchShowsURL, parameters: ["q": query]).responseJSON { response in
+                switch response.result {
+                case .success:
+                    if let data = response.data, let result = try? self?.decoder.decode([SearchResult].self, from: data) {
+                        observer.onNext(
+                            result.map {
+                                $0.show
+                            }
+                        )
                         observer.onCompleted()
                         return
                     }

@@ -43,6 +43,8 @@ class EpisodeListItem: BaseView {
 
         title.leftToSuperview(offset: 12.0)
         chevron.rightToSuperview(offset: -12.0)
+
+        title.rightToLeft(of: chevron, offset: -6.0, relation: .equalOrLess)
     }
 
     private func addGesture() {

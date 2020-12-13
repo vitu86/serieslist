@@ -42,6 +42,12 @@ class ListController: BaseController {
 }
 
 extension ListController: ListViewDelegate {
+    func loadMore() {
+        if API.shared.hasMorepage {
+            loadList()
+        }
+    }
+
     func showDetailOfShow(with show: TVShow) {
         viewModel.triggerToDetail(with: show)
     }

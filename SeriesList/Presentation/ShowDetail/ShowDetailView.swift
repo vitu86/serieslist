@@ -95,7 +95,7 @@ class ShowDetailView: BaseView {
 
         genres.text = "Genres: \(show.genres.joined(separator: ", "))"
 
-        if let htmlSummary = show.summary.getHTMLText() {
+        if let htmlSummary = show.summary?.getHTMLText() {
             summary.attributedText = htmlSummary
         } else {
             summary.text = show.summary

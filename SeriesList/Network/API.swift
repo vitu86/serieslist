@@ -30,18 +30,23 @@ class API {
 
     private lazy var listShowsURL = baseURL + "/shows"
 
+    private var currentPage = 0
+    private(set) var hasMorepage = true
+
     func getTVShowsList() -> Observable<[TVShow]> {
         Observable.create { [weak self] observer in
             guard let listShowsURL = self?.listShowsURL else {
                 return Disposables.create()
             }
 
-            let request = AF.request(listShowsURL).responseJSON { response in
+            let request = AF.request(listShowsURL, parameters: ["page": self?.currentPage]).responseJSON { response in
                 switch response.result {
                 case .success:
                     if let data = response.data, let result = try? self?.decoder.decode([TVShow].self, from: data) {
                         observer.onNext(result)
                         observer.onCompleted()
+                        self?.currentPage += 1
+                        self?.hasMorepage = !result.isEmpty
                         return
                     }
 

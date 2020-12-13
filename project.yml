@@ -7,7 +7,7 @@ options:
   developmentLanguage: "en-US"
   createIntermediateGroups: true
   deploymentTarget:
-    iOS: "10.0"
+    iOS: "12.2"
 
 name: SeriesList
 

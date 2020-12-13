@@ -12,6 +12,7 @@ enum AppRoute: Route {
     case showList
     case showDetail(show: TVShow)
     case showEpisode(episode: Episode)
+    case searchShow
 }
 
 class AppCoordinator: NavigationCoordinator<AppRoute> {
@@ -34,6 +35,11 @@ class AppCoordinator: NavigationCoordinator<AppRoute> {
         case let .showEpisode(episode):
             let viewModel = EpisodeDetailViewModel(router: weakRouter, episode: episode)
             let controller = EpisodeDetailController(viewModel: viewModel)
+            return .push(controller)
+
+        case .searchShow:
+            let viewModel = SearchShowViewModel(router: weakRouter)
+            let controller = SearchShowController(viewModel: viewModel)
             return .push(controller)
         }
     }

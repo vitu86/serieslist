@@ -29,6 +29,16 @@ class ListController: BaseController {
         super.viewDidLoad()
         title = L10n.ListScreen.title
         loadList()
+        createSearchButton()
+    }
+
+    private func createSearchButton() {
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(showSearch))
+        navigationItem.rightBarButtonItem = searchButton
+    }
+
+    @objc private func showSearch() {
+        viewModel.triggerSearch()
     }
 
     private func loadList() {

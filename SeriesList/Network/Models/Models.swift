@@ -24,6 +24,11 @@ struct Episode: Decodable {
     let image: Image?
 }
 
+struct SearchResult: Decodable {
+    let score: Double
+    let show: TVShow
+}
+
 struct Image: Decodable {
     let medium: String
     let original: String

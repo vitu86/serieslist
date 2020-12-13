@@ -88,7 +88,7 @@ class EpisodeDetailView: BaseView {
         image.width(to: container, relation: .equal)
         titleLabel.horizontalToSuperview(insets: .horizontal(12.0))
         descriptionLabel.horizontalToSuperview(insets: .horizontal(12.0))
-        summaryLabel.horizontalToSuperview(insets: .horizontal(12.0))
+        summaryLabel.edgesToSuperview(excluding: .top, insets: .horizontal(12.0))
 
         titleLabel.topToBottom(of: image, offset: 12.0)
         descriptionLabel.topToBottom(of: titleLabel, offset: 6.0)

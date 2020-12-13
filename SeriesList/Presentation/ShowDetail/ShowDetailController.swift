@@ -27,15 +27,16 @@ class ShowDetailController: BaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = viewModel.show.name
-        rootView.update(with: viewModel.show)
         getEpisodes()
     }
 
     private func getEpisodes() {
         viewModel.getEpisodesList()
             .catchErrorJustReturn([])
-            .bind { [weak self] in
-                self?.rootView.updateEpisodes(with: $0)
+            .bind { [weak self] episodes in
+                guard let strongSelf = self else { return }
+                let sortedEpisodes = episodes.sorted(by: { $0.season < $1.season })
+                strongSelf.rootView.update(with: strongSelf.viewModel.show, and: sortedEpisodes)
             }
             .disposed(by: bag)
     }

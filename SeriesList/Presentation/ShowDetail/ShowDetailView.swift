@@ -78,7 +78,7 @@ class ShowDetailView: BaseView {
         setupUI()
     }
 
-    func update(with show: TVShow) {
+    func update(with show: TVShow, and episodes: [Episode]) {
         if let url = URL(string: show.image.original) {
             image.af.setImage(withURL: url)
             image.sizeToFit()
@@ -95,10 +95,19 @@ class ShowDetailView: BaseView {
         }
 
         schedule.text = mountSchedule(with: show.schedule)
+
+        updateEpisodes(with: episodes)
     }
 
-    func updateEpisodes(with list: [Episode]) {
+    private func updateEpisodes(with list: [Episode]) {
+        var currentSeason: Int64 = 0
         list.forEach { episode in
+            if episode.season > currentSeason {
+                currentSeason = episode.season
+                episodesList.addArrangedSubview(
+                    EpisodeListTitle(title: "Season \(episode.season)")
+                )
+            }
             episodesList.addArrangedSubview(
                 EpisodeListItem(title: episode.name, {
                         print(episode.name)

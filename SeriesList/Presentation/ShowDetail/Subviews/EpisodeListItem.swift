@@ -41,8 +41,8 @@ class EpisodeListItem: BaseView {
         title.verticalToSuperview(insets: .vertical(12.0))
         chevron.centerYToSuperview()
 
-        title.leftToSuperview()
-        chevron.rightToSuperview(offset: -6.0)
+        title.leftToSuperview(offset: 12.0)
+        chevron.rightToSuperview(offset: -12.0)
     }
 
     private func addGesture() {

@@ -7,7 +7,7 @@ options:
   developmentLanguage: "en-US"
   createIntermediateGroups: true
   deploymentTarget:
-    iOS: "10.0"
+    iOS: "12.2"
 
 name: SeriesList
 
@@ -25,6 +25,14 @@ targets:
         CFBundleDisplayName: "Series List"
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSAppTransportSecurity: 
+          NSExceptionDomains: 
+            tvmaze.com:
+              NSIncludesSubdomains: true
+              NSExceptionAllowsInsecureHTTPLoads: true
+              NSExceptionRequiresForwardSecrecy: true
+              NSThirdPartyExceptionAllowsInsecureHTTPLoads: true
+              NSThirdPartyExceptionRequiresForwardSecrecy: true
 
     sources: 
       - path: SeriesList
@@ -41,4 +49,6 @@ targets:
     preBuildScripts:
       - name: Swiftgen
         script: swiftgen
+      - name: Swiftlint
+        script: swiftlint
     

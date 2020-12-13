@@ -5,3 +5,10 @@
   Created by Vitor Costa on 10/12/20.
   Copyright © 2020 Vitor Costa. All rights reserved.
 */
+
+// MARK: - List Screen -
+"ListScreen.Title" = "List";
+
+
+// MARK: - Details Screen -
+"DetailsScreen.Episodes" = "Episodes";

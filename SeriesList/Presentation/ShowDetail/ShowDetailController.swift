@@ -28,6 +28,7 @@ class ShowDetailController: BaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = viewModel.show.name
+        rootView.showLoading()
         getEpisodes()
     }
 
@@ -38,6 +39,7 @@ class ShowDetailController: BaseController {
                 guard let strongSelf = self else { return }
                 let sortedEpisodes = episodes.sorted(by: { $0.season < $1.season })
                 strongSelf.rootView.update(with: strongSelf.viewModel.show, and: sortedEpisodes)
+                strongSelf.rootView.hideLoading()
             }
             .disposed(by: bag)
     }

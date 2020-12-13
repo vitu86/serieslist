@@ -28,6 +28,7 @@ class ListController: BaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = L10n.ListScreen.title
+        rootView.showLoading()
         loadList()
         createSearchButton()
     }
@@ -46,6 +47,7 @@ class ListController: BaseController {
             .catchErrorJustReturn([])
             .bind { [weak self] in
                 self?.rootView.update(with: $0)
+                self?.rootView.hideLoading()
             }
             .disposed(by: bag)
     }

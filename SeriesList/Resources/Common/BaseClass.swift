@@ -30,6 +30,8 @@ class BaseController: UIViewController {
 }
 
 class BaseView: UIView {
+    private lazy var loadingView = Loading()
+
     init() {
         super.init(frame: .zero)
     }
@@ -37,5 +39,37 @@ class BaseView: UIView {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func showLoading() {
+        addSubview(loadingView)
+        loadingView.edgesToSuperview()
+        bringSubviewToFront(loadingView)
+    }
+
+    func hideLoading() {
+        loadingView.removeFromSuperview()
+    }
+}
+
+private class Loading: UIView {
+
+    private let loadingIndicator = UIActivityIndicatorView(style: .gray)
+
+    init() {
+        super.init(frame: .zero)
+        setupUI()
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func setupUI() {
+        backgroundColor = .white
+        addSubview(loadingIndicator)
+        loadingIndicator.edgesToSuperview()
+        loadingIndicator.startAnimating()
     }
 }

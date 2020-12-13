@@ -27,12 +27,16 @@ class SearchShowController: BaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Search"
+        rootView.showLoading()
     }
 
     private func search(_ query: String) {
         viewModel.getShows(with: query)
             .catchErrorJustReturn([])
-            .bind { [weak self] in self?.rootView.update(with: $0) }
+            .bind { [weak self] in
+                self?.rootView.update(with: $0)
+                self?.rootView.hideLoading()
+            }
             .disposed(by: bag)
     }
 }

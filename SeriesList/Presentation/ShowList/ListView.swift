@@ -10,6 +10,7 @@ import UIKit
 
 protocol ListViewDelegate: AnyObject {
     func showDetailOfShow(with show: TVShow)
+    func loadMore()
 }
 
 class ListView: BaseView {
@@ -33,7 +34,7 @@ class ListView: BaseView {
     }
 
     func update(with shows: [TVShow]) {
-        source = shows
+        source.append(contentsOf: shows)
         list.reloadData()
     }
 
@@ -64,6 +65,10 @@ extension ListView: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         }
 
         cell.bind(to: source[indexPath.row])
+
+        if indexPath.row >= source.count - 2 {
+            delegate?.loadMore()
+        }
 
         return cell
     }

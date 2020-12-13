@@ -22,6 +22,7 @@ class ShowDetailController: BaseController {
 
     override func loadView() {
         view = rootView
+        rootView.delegate = self
     }
 
     override func viewDidLoad() {
@@ -39,5 +40,11 @@ class ShowDetailController: BaseController {
                 strongSelf.rootView.update(with: strongSelf.viewModel.show, and: sortedEpisodes)
             }
             .disposed(by: bag)
+    }
+}
+
+extension ShowDetailController: ShowDetailViewDelegate {
+    func showEpisode(_ episode: Episode) {
+        viewModel.triggerEpisode(episode)
     }
 }

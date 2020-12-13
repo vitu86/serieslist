@@ -22,4 +22,8 @@ class ShowDetailViewModel {
     func getEpisodesList() -> Observable<[Episode]> {
         API.shared.getEpisodes(from: show)
     }
+
+    func triggerEpisode(_ episode: Episode) {
+        router.trigger(.showEpisode(episode: episode))
+    }
 }

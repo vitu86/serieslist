@@ -46,7 +46,8 @@ class ListViewCollectionCell: UICollectionViewCell {
 
     func bind(to show: TVShow) {
         image.image = nil
-        if let url = URL(string: show.image.medium) {
+        if let imageURL = show.image?.medium,
+            let url = URL(string: imageURL) {
             image.af.setImage(withURL: url, runImageTransitionIfCached: true)
         }
         title.text = show.name

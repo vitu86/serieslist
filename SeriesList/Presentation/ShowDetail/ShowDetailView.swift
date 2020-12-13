@@ -9,6 +9,10 @@
 import TinyConstraints
 import UIKit
 
+protocol ShowDetailViewDelegate: AnyObject {
+    func showEpisode(_ episode: Episode)
+}
+
 class ShowDetailView: BaseView {
 
     private let container: UIScrollView = {
@@ -72,6 +76,8 @@ class ShowDetailView: BaseView {
         return stack
     }()
 
+    weak var delegate: ShowDetailViewDelegate?
+
     override init() {
         super.init()
         backgroundColor = .white
@@ -79,7 +85,8 @@ class ShowDetailView: BaseView {
     }
 
     func update(with show: TVShow, and episodes: [Episode]) {
-        if let url = URL(string: show.image.original) {
+        if let imageURL = show.image?.original,
+            let url = URL(string: imageURL) {
             image.af.setImage(withURL: url)
             image.sizeToFit()
         }
@@ -88,7 +95,7 @@ class ShowDetailView: BaseView {
 
         genres.text = "Genres: \(show.genres.joined(separator: ", "))"
 
-        if let htmlSummary = getHTMLText(for: show.summary) {
+        if let htmlSummary = show.summary.getHTMLText() {
             summary.attributedText = htmlSummary
         } else {
             summary.text = show.summary
@@ -101,7 +108,7 @@ class ShowDetailView: BaseView {
 
     private func updateEpisodes(with list: [Episode]) {
         var currentSeason: Int64 = 0
-        list.forEach { episode in
+        list.forEach { [weak self] episode in
             if episode.season > currentSeason {
                 currentSeason = episode.season
                 episodesList.addArrangedSubview(
@@ -109,8 +116,10 @@ class ShowDetailView: BaseView {
                 )
             }
             episodesList.addArrangedSubview(
-                EpisodeListItem(title: episode.name, {
-                        print(episode.name)
+                EpisodeListItem(
+                    title: episode.name,
+                    {
+                        self?.delegate?.showEpisode(episode)
                     }
                 )
             )
@@ -147,11 +156,6 @@ class ShowDetailView: BaseView {
         summary.topToBottom(of: schedule, offset: 12.0)
         episodesLabel.topToBottom(of: summary, offset: 12.0)
         episodesList.topToBottom(of: episodesLabel, offset: 6.0)
-    }
-
-    private func getHTMLText(for value: String) -> NSAttributedString? {
-        guard let valueData = value.data(using: .utf8) else { return nil }
-        return try? NSAttributedString(data: valueData, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
     }
 
     private func mountSchedule(with value: Schedule) -> String {

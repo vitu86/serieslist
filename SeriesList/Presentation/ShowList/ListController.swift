@@ -27,7 +27,7 @@ class ListController: BaseController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = L10n.ListScreen.title
+        title = L10n.List.title
         rootView.showLoading()
         loadList()
         createSearchButton()

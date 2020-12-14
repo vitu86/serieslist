@@ -7,8 +7,17 @@
 */
 
 // MARK: - List Screen -
-"ListScreen.Title" = "List";
+"List.Title" = "List";
 
 
 // MARK: - Details Screen -
-"DetailsScreen.Episodes" = "Episodes";
+"Detail.Episodes" = "Episodes";
+"Detail.Genres" = "Genres: %@";
+"Detail.Episodes.List.Session" = "Season %@";
+"Detail.Schedule" = "At %@, every %@";
+
+// MARK: - Episode Details Screen -
+"Episode.Description" = "Season %@ - Episode: %@";
+
+// MARK: - Search Screen -
+"Search.Title" = "Search";

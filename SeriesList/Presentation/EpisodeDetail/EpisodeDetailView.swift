@@ -63,7 +63,7 @@ class EpisodeDetailView: BaseView {
 
         titleLabel.text = episode.name
 
-        descriptionLabel.text = "Season \(episode.season) - Episode: \(episode.number)"
+        descriptionLabel.text = L10n.Episode.description(episode.season, episode.number)
 
         if let htmlSummary = episode.summary?.getHTMLText() {
             summaryLabel.attributedText = htmlSummary

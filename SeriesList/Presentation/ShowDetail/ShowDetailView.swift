@@ -63,7 +63,7 @@ class ShowDetailView: BaseView {
 
     private let episodesLabel: UILabel = {
         let label = UILabel()
-        label.text = L10n.DetailsScreen.episodes
+        label.text = L10n.Detail.episodes
         label.textColor = .black
         label.numberOfLines = 0
         label.font = .boldSystemFont(ofSize: 20)
@@ -93,7 +93,7 @@ class ShowDetailView: BaseView {
 
         title.text = show.name
 
-        genres.text = "Genres: \(show.genres.joined(separator: ", "))"
+        genres.text = L10n.Detail.genres(show.genres.joined(separator: ", "))
 
         if let htmlSummary = show.summary?.getHTMLText() {
             summary.attributedText = htmlSummary
@@ -112,7 +112,7 @@ class ShowDetailView: BaseView {
             if episode.season > currentSeason {
                 currentSeason = episode.season
                 episodesList.addArrangedSubview(
-                    EpisodeListTitle(title: "Season \(episode.season)")
+                    EpisodeListTitle(title: L10n.Detail.Episodes.List.session(episode.season))
                 )
             }
             episodesList.addArrangedSubview(
@@ -158,6 +158,6 @@ class ShowDetailView: BaseView {
     }
 
     private func mountSchedule(with value: Schedule) -> String {
-        "At \(value.time), every: \(value.days.joined(separator: ","))"
+        L10n.Detail.schedule(value.time, value.days.joined(separator: ","))
     }
 }

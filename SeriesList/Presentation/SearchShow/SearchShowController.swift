@@ -26,11 +26,11 @@ class SearchShowController: BaseController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Search"
-        rootView.showLoading()
+        title = L10n.Search.title
     }
 
     private func search(_ query: String) {
+        rootView.showLoading()
         viewModel.getShows(with: query)
             .catchErrorJustReturn([])
             .bind { [weak self] in

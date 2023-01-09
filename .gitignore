@@ -1,14 +1,5 @@
-
-# Created by https://www.toptal.com/developers/gitignore/api/swift,macos,xcode,cocoapods
-# Edit at https://www.toptal.com/developers/gitignore?templates=swift,macos,xcode,cocoapods
-
-### CocoaPods ###
-## CocoaPods GitIgnore Template
-
-# CocoaPods - Only use to conserve bandwidth / Save time on Pushing
-#           - Also handy if you have a large number of dependant pods
-#           - AS PER https://guides.cocoapods.org/using/using-cocoapods.html NEVER IGNORE THE LOCK FILE
-Pods/
+# Created by https://www.toptal.com/developers/gitignore/api/macos,xcode,swift
+# Edit at https://www.toptal.com/developers/gitignore?templates=macos,xcode,swift
 
 ### macOS ###
 # General
@@ -38,6 +29,10 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+### macOS Patch ###
+# iCloud generated files
+*.icloud
 
 ### Swift ###
 # Xcode
@@ -124,28 +119,16 @@ fastlane/test_output
 iOSInjectionProject/
 
 ### Xcode ###
-# Xcode
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
-
-
-
-## Gcc Patch
-/*.gcno
+## Xcode 8 and earlier
 
 ### Xcode Patch ###
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/
+!*.xcodeproj/project.xcworkspace/
 !*.xcworkspace/contents.xcworkspacedata
+/*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
-# End of https://www.toptal.com/developers/gitignore/api/swift,macos,xcode,cocoapods
-
-
-# CUSTOM
-
-*.generated.swift
-*.xcodeproj
-*.xcworkspace
-Podfile.lock
+# End of https://www.toptal.com/developers/gitignore/api/macos,xcode,swift

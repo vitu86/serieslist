@@ -13,4 +13,9 @@ class HomeController: BaseController {
 	override func loadView() {
 		view = rootView
 	}
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		title = L10n.string(for: "HomeTitle")
+	}
 }

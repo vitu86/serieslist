@@ -18,18 +18,17 @@ class BaseController: UIViewController {
 	}
 }
 
-// MARK: - State Control
-extension BaseController {
+
+extension BaseController: BaseControllerType {
 	func showLoading() {
-		(view as? BaseView)?.showLoading()
+		(view as? BaseViewType)?.showLoading()
 	}
 
 	func hideLoading() {
-		(view as? BaseView)?.hideLoading()
+		(view as? BaseViewType)?.hideLoading()
 	}
 
 	func showError() {
-		print("ERROR")
-		// show error view
+		(view as? BaseViewType)?.showError()
 	}
 }

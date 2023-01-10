@@ -8,10 +8,10 @@
 import Foundation
 
 class HomeController: BaseController {
-	private let rootView = BaseView()
-	private let presenter: HomePresenter
+	private let rootView: HomeViewType = HomeView()
+	private let presenter: HomePresenterType
 
-	init(presenter: HomePresenter) {
+	init(presenter: HomePresenterType) {
 		self.presenter = presenter
 		super.init()
 	}
@@ -24,5 +24,11 @@ class HomeController: BaseController {
 		super.viewDidLoad()
 		title = L10n.string(for: "HomeTitle")
 		presenter.getShowsList()
+	}
+}
+
+extension HomeController: HomeControllerType {
+	func update(list: [HomeViewModel]) {
+		rootView.update(list: list)
 	}
 }

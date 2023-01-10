@@ -12,9 +12,13 @@ class Service {
 	static let shared = Service()
 	private init() {}
 
-	private let requestManager = RequestManager()
+	private var requestManager: RequestManagerType = RequestManager()
 	private var currentPage = 1
 	private var hasMorepage = true
+
+	func updateManager(_ requestManager: RequestManagerType) {
+		self.requestManager = requestManager
+	}
 
 	func getTVShowsList(completion: @escaping (Result<[TVShow], NetworkError>) -> Void) {
 		let endpoint = Endpoints.showsList(page: currentPage)

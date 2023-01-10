@@ -7,6 +7,12 @@
 
 import Foundation
 
+protocol RequestManagerType {
+	func makeRequest<T: Decodable>(_ endpoint: Endpoint, completion: @escaping RequestResult<T>)
+}
+
+typealias RequestResult<T> = (Result<T, NetworkError>) -> Void
+
 enum NetworkError: String, Error {
 	case urlNotFound
 	case missingData
@@ -18,7 +24,7 @@ enum NetworkError: String, Error {
 	}
 }
 
-class RequestManager {
+class RequestManager: RequestManagerType {
 
 	private let decoder: JSONDecoder = {
 		let decoder = JSONDecoder()
@@ -26,7 +32,7 @@ class RequestManager {
 		return decoder
 	}()
 
-	func makeRequest<T: Decodable>(_ endpoint: Endpoint, completion: @escaping (Result<T, NetworkError>) -> Void){
+	func makeRequest<T: Decodable>(_ endpoint: Endpoint, completion: @escaping RequestResult<T>){
 		guard let url = URL(string: endpoint.url) else {
 			completion(.failure(.urlNotFound))
 			return

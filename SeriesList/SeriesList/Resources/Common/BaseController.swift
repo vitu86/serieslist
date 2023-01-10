@@ -16,11 +16,6 @@ class BaseController: UIViewController {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		showLoading()
-	}
 }
 
 // MARK: - State Control
@@ -31,5 +26,10 @@ extension BaseController {
 
 	func hideLoading() {
 		(view as? BaseView)?.hideLoading()
+	}
+
+	func showError() {
+		print("ERROR")
+		// show error view
 	}
 }

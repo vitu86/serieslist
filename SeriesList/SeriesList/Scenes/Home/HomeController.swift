@@ -9,6 +9,12 @@ import Foundation
 
 class HomeController: BaseController {
 	private let rootView = BaseView()
+	private let presenter: HomePresenter
+
+	init(presenter: HomePresenter) {
+		self.presenter = presenter
+		super.init()
+	}
 
 	override func loadView() {
 		view = rootView
@@ -17,5 +23,6 @@ class HomeController: BaseController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = L10n.string(for: "HomeTitle")
+		presenter.getShowsList()
 	}
 }

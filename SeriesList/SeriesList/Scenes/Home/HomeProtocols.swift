@@ -12,6 +12,8 @@ protocol HomeControllerType: BaseControllerType, AnyObject {
 }
 
 protocol HomeViewType: BaseViewType, UIView {
+	var onClick: ((HomeViewModel) -> Void)? { get set }
+	var onEndReached: (() -> Void)? { get set }
 	func update(list: [HomeViewModel])
 }
 

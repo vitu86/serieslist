@@ -40,4 +40,8 @@ class LoadingView: UIView {
 		loadingIndicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
 		loadingIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 	}
+
+	func animate() {
+		loadingIndicator.startAnimating()
+	}
 }

@@ -9,10 +9,13 @@ import UIKit
 
 class HomeView: BaseView {
 
-	private var onClick: ((HomeViewModel) -> Void)?
+	var onClick: ((HomeViewModel) -> Void)?
+	var onEndReached: (() -> Void)?
 
 	private lazy var tableHandler = HomeViewTableHandler { [weak self] item in
 		self?.onClick?(item)
+	} onEndReached: { [weak self] in
+		self?.onEndReached?()
 	}
 
 	private lazy var table: UITableView = {
@@ -44,6 +47,5 @@ extension HomeView: HomeViewType {
 	func update(list: [HomeViewModel]) {
 		hideLoading()
 		tableHandler.updateSource(list)
-		print("UPDATE VIEW: \(list.count)")
 	}
 }

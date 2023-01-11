@@ -23,7 +23,9 @@ class HomePresenter {
 
 extension HomePresenter: HomePresenterType {
 	func getShowsList() {
-		controller?.showLoading()
+		if service.isFirstPage {
+			controller?.showLoading()
+		}
 		service.getTVShowsList { [weak self] result in
 			DispatchQueue.main.async {
 				switch result {

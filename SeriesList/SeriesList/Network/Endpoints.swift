@@ -7,7 +7,6 @@
 
 struct Endpoint {
 	let url: String
-	let params: [String: Any]
 }
 
 struct Endpoints {
@@ -16,22 +15,19 @@ struct Endpoints {
 
 	static func showsList(page: Int = 1) -> Endpoint {
 		Endpoint(
-			url: baseURL + "/shows",
-			params: ["page": page]
+			url: baseURL + "/shows?page=\(page)"
 		)
 	}
 
 	static func getEpisodies(from tvShowId: Int64) -> Endpoint {
 		Endpoint(
-			url: baseURL + "/shows\(tvShowId)/episodes",
-			params: [:]
+			url: baseURL + "/shows\(tvShowId)/episodes"
 		)
 	}
 
 	static func searchShows(query: String = "") -> Endpoint {
 		Endpoint(
-			url: baseURL + "/search/shows",
-			params: ["q": query]
+			url: baseURL + "/search/shows?q=\(query)"
 		)
 	}
 }

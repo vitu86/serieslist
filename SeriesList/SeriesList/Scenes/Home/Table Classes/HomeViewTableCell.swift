@@ -24,6 +24,7 @@ class HomeViewTableCell: UITableViewCell {
 
 	private let labelName: UILabel = {
 		let label = UILabel()
+		label.font = UIFont.boldSystemFont(ofSize: 20)
 		label.numberOfLines = 1
 		label.lineBreakMode = .byTruncatingTail
 		label.adjustsFontSizeToFitWidth = false
@@ -33,6 +34,7 @@ class HomeViewTableCell: UITableViewCell {
 
 	private let labelGenres: UILabel = {
 		let label = UILabel()
+		label.font = UIFont.systemFont(ofSize: 15)
 		label.numberOfLines = 0
 		label.lineBreakMode = .byTruncatingTail
 		label.adjustsFontSizeToFitWidth = false
@@ -73,7 +75,6 @@ class HomeViewTableCell: UITableViewCell {
 		viewImage.topAnchor.constraint(equalTo: container.topAnchor).isActive = true
 		viewImage.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
 		viewImage.leadingAnchor.constraint(equalTo: container.leadingAnchor).isActive = true
-		viewImage.heightAnchor.constraint(equalToConstant: 130).isActive = true
 		viewImage.widthAnchor.constraint(equalToConstant: 90).isActive = true
 
 		// Label Name

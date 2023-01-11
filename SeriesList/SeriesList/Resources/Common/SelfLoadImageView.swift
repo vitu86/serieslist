@@ -30,7 +30,7 @@ class SelfLoadImageView: UIImageView {
 					self?.image = image
 
 				case .failure:
-					self?.image = Images.get(for: "")
+					self?.image = Images.get(for: "--")
 				}
 				self?.hideLoading()
 			}
@@ -42,6 +42,7 @@ class SelfLoadImageView: UIImageView {
 extension SelfLoadImageView {
 	private func showLoading() {
 		addSubview(loadingView)
+		loadingView.animate()
 		addLoadingConstraints()
 		bringSubviewToFront(loadingView)
 	}

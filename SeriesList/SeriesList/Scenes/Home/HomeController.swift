@@ -22,8 +22,19 @@ class HomeController: BaseController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		addActions()
 		title = L10n.string(for: "HomeTitle")
 		presenter.getShowsList()
+	}
+
+	private func addActions() {
+		rootView.onClick = {_ in
+//			print($0)
+		}
+
+		rootView.onEndReached = { [weak self] in
+			self?.presenter.getShowsList()
+		}
 	}
 }
 

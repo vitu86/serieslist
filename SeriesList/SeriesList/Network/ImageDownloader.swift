@@ -24,11 +24,16 @@ enum ImageError: String, Error {
 
 typealias ImageResult = (Result<UIImage, ImageError>) -> Void
 
+private struct CachedImage {
+	let image: UIImage
+	let date: Date
+}
+
 class ImageDownloader: ImageDownloaderType {
 	private let cacheLimit = 20
 
 	private var imageTasks: [String: URLSessionDataTask] = [:]
-	private var imageCaches: [String: UIImage] = [:]
+	private var imageCaches: [String: CachedImage] = [:]
 	private var imageCompletions: [String: [ImageResult]] = [:]
 
 	static let shared = ImageDownloader()
@@ -42,8 +47,8 @@ class ImageDownloader: ImageDownloaderType {
 			return
 		}
 
-		if let cacheImage = imageCaches[url.absoluteString] {
-			completion(.success(cacheImage))
+		if let cacheImage = imageCaches.first(where: { $0.key == url.absoluteString }) {
+			completion(.success(cacheImage.value.image))
 			return
 		}
 
@@ -85,20 +90,31 @@ class ImageDownloader: ImageDownloaderType {
 				return
 			}
 
-			self?.imageCaches[currentUrl.absoluteString] = resultImage
+			self?.imageCaches[currentUrl.absoluteString] = CachedImage(image: resultImage, date: .now)
 			completions.runCompletion(with: .success(resultImage))
+			self?.resetFields(key: currentUrl.absoluteString)
 		}
 	}
 
 	private func resetFields(key: String) {
 		imageTasks.removeValue(forKey: key)
 		imageCompletions.removeValue(forKey: key)
+		resetImageCache(with: key)
+	}
 
-		if imageCaches.count > cacheLimit {
-			print("DEBUG PRINT. ANTES: \(imageCaches.count)")
-			_ = imageCaches.popFirst()
-			print("DEBUG PRINT. ANTES: \(imageCaches.count)")
+	private func resetImageCache(with key: String) {
+		guard imageCaches.count > cacheLimit else { return }
+
+		var oldestCachedImage = imageCaches[key]
+		var oldestKeyCached: String = ""
+
+		imageCaches.forEach {
+			if $0.value.date < oldestCachedImage?.date ?? .now {
+				oldestCachedImage = $0.value
+				oldestKeyCached = $0.key
+			}
 		}
+		imageCaches.removeValue(forKey: oldestKeyCached)
 	}
 }
 

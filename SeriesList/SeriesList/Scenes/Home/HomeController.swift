@@ -8,11 +8,12 @@
 import Foundation
 
 class HomeController: BaseController {
-	private let rootView: HomeViewType = HomeView()
+	private let rootView: HomeViewType
 	private let presenter: HomePresenterType
 
-	init(presenter: HomePresenterType) {
+	init(presenter: HomePresenterType, rootView: HomeViewType = HomeView()) {
 		self.presenter = presenter
+		self.rootView = rootView
 		super.init()
 	}
 
@@ -28,8 +29,8 @@ class HomeController: BaseController {
 	}
 
 	private func addActions() {
-		rootView.onClick = {_ in
-//			print($0)
+		rootView.onClick = { [weak self] item in
+			self?.presenter.sendToDetail(id: item.id)
 		}
 
 		rootView.onEndReached = { [weak self] in

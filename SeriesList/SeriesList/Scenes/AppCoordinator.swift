@@ -9,23 +9,26 @@ import UIKit
 
 enum Route {
 	case home
+	case detail(_ show: TVShow)
 }
 
-struct AppCoordinator {
-
-	private(set) var initialRout: Route
-	private let navigation: UINavigationController
-
-	init(initialRout: Route = .home, navigation: UINavigationController) {
-		self.initialRout = initialRout
-		self.navigation = navigation
-		route(initialRout)
+class AppCoordinator {
+	var navigation: UINavigationController? {
+		didSet {
+			route(.home)
+		}
 	}
+
+	static let shared = AppCoordinator()
+	private init() {}
 
 	func route(_ to: Route) {
 		switch to {
 		case .home:
 			routeToHome()
+
+		case let .detail(show):
+			routeToDetail(show)
 		}
 	}
 
@@ -39,6 +42,15 @@ extension AppCoordinator {
 
 		presenter.controller = viewController
 
-		navigation.viewControllers = [viewController]
+		navigation?.viewControllers = [viewController]
+	}
+
+	private func routeToDetail(_ show: TVShow) {
+		let presenter = DetailPresenter(show: show)
+		let viewController = DetailController(presenter: presenter)
+
+		presenter.controller = viewController
+
+		navigation?.pushViewController(viewController, animated: true)
 	}
 }

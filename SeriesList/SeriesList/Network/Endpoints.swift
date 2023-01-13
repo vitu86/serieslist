@@ -21,7 +21,7 @@ struct Endpoints {
 
 	static func getEpisodies(from tvShowId: Int64) -> Endpoint {
 		Endpoint(
-			url: baseURL + "/shows\(tvShowId)/episodes"
+			url: baseURL + "/shows/\(tvShowId)/episodes"
 		)
 	}
 

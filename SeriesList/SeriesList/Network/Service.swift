@@ -42,8 +42,8 @@ class Service {
 		}
 	}
 
-	func getShowEpisodes(show: TVShow, completion: @escaping (Result<[Episode], NetworkError>) -> Void) {
-		let endpoint = Endpoints.getEpisodies(from: show.id)
+	func getShowEpisodes(showId: Int64, completion: @escaping (Result<[Episode], NetworkError>) -> Void) {
+		let endpoint = Endpoints.getEpisodies(from: showId)
 		requestManager.makeRequest(endpoint, completion: completion)
 	}
 

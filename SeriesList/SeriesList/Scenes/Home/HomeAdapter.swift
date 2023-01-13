@@ -9,9 +9,10 @@ struct HomeAdapter: HomeAdapterType {
 	func adapt(model: [TVShow]) -> [HomeViewModel] {
 		model.map {
 			.init(
+				id: String($0.id),
 				name: $0.name,
 				imageURL: $0.image?.medium ?? "",
-				genres: $0.genres.joined(separator: " - ")
+				genres: $0.genres.compactJoin(separator: " - ")
 			)
 		}
 	}

@@ -23,4 +23,5 @@ protocol HomeAdapterType {
 
 protocol HomePresenterType {
 	func getShowsList()
+	func sendToDetail(id: String)
 }

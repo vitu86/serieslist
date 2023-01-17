@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HomePresenter {
+final class HomePresenter {
 
 	weak var controller: HomeControllerType?
 

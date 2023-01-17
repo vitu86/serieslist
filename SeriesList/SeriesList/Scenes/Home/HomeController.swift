@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class HomeController: BaseController {
+final class HomeController: BaseController {
 	private var searchQuery: String?
 	private let rootView: HomeViewType
 	private let presenter: HomePresenterType

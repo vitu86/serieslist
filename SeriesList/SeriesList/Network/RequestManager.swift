@@ -24,7 +24,7 @@ enum NetworkError: String, Error {
 	}
 }
 
-class RequestManager: RequestManagerType {
+final class RequestManager: RequestManagerType {
 
 	private let decoder: JSONDecoder = {
 		let decoder = JSONDecoder()

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailView: BaseView {
+final class DetailView: BaseView {
 	private let scroll: UIScrollView = {
 		let scroll = UIScrollView()
 		scroll.translatesAutoresizingMaskIntoConstraints = false

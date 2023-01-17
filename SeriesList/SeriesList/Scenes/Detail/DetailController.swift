@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailController: BaseController {
+final class DetailController: BaseController {
 	private let rootView: DetailViewType
 	private let presenter: DetailPresenterType
 

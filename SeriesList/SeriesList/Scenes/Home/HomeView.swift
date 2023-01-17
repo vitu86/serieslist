@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeView: BaseView {
+final class HomeView: BaseView {
 
 	var onClick: ((HomeViewModel) -> Void)?
 	var onEndReached: (() -> Void)?

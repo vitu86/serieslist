@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class DetailPresenter {
+final class DetailPresenter {
 	private let service: Service
 	private let adapter: DetailAdapterType
 	private let show: TVShow

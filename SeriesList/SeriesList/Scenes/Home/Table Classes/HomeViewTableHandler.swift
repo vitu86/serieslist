@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewTableHandler: NSObject {
+final class HomeViewTableHandler: NSObject {
 	private var source: [HomeViewModel] = []
 	private var onItemClicked: ((HomeViewModel) -> Void)?
 	private var onEndReached: (() -> Void)?

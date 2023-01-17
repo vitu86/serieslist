@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SelfLoadImageView: UIImageView {
+final class SelfLoadImageView: UIImageView {
 	private var imageUrl: String = ""
 
 	private lazy var loadingView: LoadingView = {

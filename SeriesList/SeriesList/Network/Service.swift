@@ -7,7 +7,14 @@
 
 import Foundation
 
-class Service {
+protocol ServiceType {
+	func updateManager(_ requestManager: RequestManagerType)
+	func getTVShowsList(page: Int, completion: @escaping (Result<[TVShow], NetworkError>) -> Void)
+	func getShowEpisodes(showId: Int64, completion: @escaping (Result<[Episode], NetworkError>) -> Void)
+	func searchForShow(with query: String, completion: @escaping (Result<[TVShow], NetworkError>) -> Void)
+}
+
+final class Service  {
 	// Let's work with some Singleton here.
 	static let shared = Service()
 	private init() {}
@@ -15,7 +22,9 @@ class Service {
 	private var requestManager: RequestManagerType = RequestManager()
 	private var hasMorepage = true
 	private var isLoading = false
+}
 
+extension Service: ServiceType {
 	func updateManager(_ requestManager: RequestManagerType) {
 		self.requestManager = requestManager
 	}

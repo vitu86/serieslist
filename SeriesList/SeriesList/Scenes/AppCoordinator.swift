@@ -12,7 +12,7 @@ enum Route {
 	case detail(_ show: TVShow)
 }
 
-class AppCoordinator {
+final class AppCoordinator {
 	var navigation: UINavigationController? {
 		didSet {
 			route(.home)

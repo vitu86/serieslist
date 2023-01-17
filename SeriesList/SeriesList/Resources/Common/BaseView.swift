@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseView: UIView {
+final class BaseView: UIView {
 
 	private lazy var loadingView: LoadingView = {
 		let view = LoadingView()
@@ -47,7 +47,6 @@ extension BaseView {
 }
 
 extension BaseView: BaseViewType {
-
 	func showLoading() {
 		configureAndShowLoading()
 	}

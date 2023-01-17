@@ -29,7 +29,7 @@ private struct CachedImage {
 	let date: Date
 }
 
-class ImageDownloader: ImageDownloaderType {
+final class ImageDownloader: ImageDownloaderType {
 	private let cacheLimit = 20
 
 	private var imageTasks: [String: URLSessionDataTask] = [:]

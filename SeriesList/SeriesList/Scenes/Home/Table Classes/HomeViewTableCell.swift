@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewTableCell: UITableViewCell {
+final class HomeViewTableCell: UITableViewCell {
 	private let container: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false

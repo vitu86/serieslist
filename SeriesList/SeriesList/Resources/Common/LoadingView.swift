@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoadingView: UIView {
+final class LoadingView: UIView {
 
 	private let loadingIndicator: UIActivityIndicatorView = {
 		let view = UIActivityIndicatorView(style: .large)

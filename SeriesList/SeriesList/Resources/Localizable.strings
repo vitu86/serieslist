@@ -6,5 +6,12 @@
   
 */
 
+// Home
 "HomeTitle" = "Series List";
 "HomeTitleForResult" = "Result(s) for: ";
+
+// Errors
+"ErrorActionConfirm" = "Try Again";
+"ErrorDetailFetch" = "Sorry, we couldn't load the show details";
+"ErrorShowsFetch" = "Sorry, we couldn't load the shows list";
+"ErrorSearch" = "Sorry, we couldn't load the search result";

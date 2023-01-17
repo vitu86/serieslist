@@ -28,7 +28,12 @@ extension BaseController: BaseControllerType {
 		(view as? BaseViewType)?.hideLoading()
 	}
 
-	func showError() {
-		(view as? BaseViewType)?.showError()
+	func showError(_ message: String, tryAgainFunction: (() -> Void)? = nil) {
+		let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+		let action = UIAlertAction(title: L10n.string(for: "ErrorActionConfirm"), style: .default) { _ in
+			tryAgainFunction?()
+		}
+		alert.addAction(action)
+		present(alert, animated: true)
 	}
 }

@@ -47,9 +47,6 @@ extension BaseView {
 }
 
 extension BaseView: BaseViewType {
-	func showError() {
-		print("error")
-	}
 
 	func showLoading() {
 		configureAndShowLoading()

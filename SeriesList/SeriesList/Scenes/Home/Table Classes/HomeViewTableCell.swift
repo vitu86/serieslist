@@ -53,6 +53,7 @@ class HomeViewTableCell: UITableViewCell {
 	}
 
 	private func setupUI() {
+		selectionStyle = .none
 		addSubviews()
 		addConstraints()
 	}

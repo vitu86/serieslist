@@ -48,7 +48,9 @@ extension HomePresenter: HomePresenterType {
 					self?.adaptAndShow(shows: shows)
 
 				case .failure:
-					self?.controller?.showError()
+					self?.controller?.showError(L10n.string(for: "ErrorShowsFetch")) {
+						self?.getShowsList()
+					}
 				}
 			}
 		}
@@ -65,7 +67,9 @@ extension HomePresenter: HomePresenterType {
 					self?.adaptAndShow(shows: shows)
 
 				case .failure:
-					self?.controller?.showError()
+					self?.controller?.showError(L10n.string(for: "ErrorSearch")) {
+						self?.searchShows(query)
+					}
 				}
 			}
 		}

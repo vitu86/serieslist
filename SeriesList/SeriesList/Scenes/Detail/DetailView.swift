@@ -98,17 +98,17 @@ class DetailView: BaseView {
 
 		// Name
 		labelName.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
-		labelName.trailingAnchor.constraint(equalTo: scrollContent.trailingAnchor, constant: 16).isActive = true
+		labelName.trailingAnchor.constraint(equalTo: scrollContent.trailingAnchor, constant: -16).isActive = true
 		labelName.leadingAnchor.constraint(equalTo: scrollContent.leadingAnchor, constant: 16).isActive = true
 
 		// Genres
 		labelGenres.topAnchor.constraint(equalTo: labelName.bottomAnchor, constant: 10).isActive = true
-		labelGenres.trailingAnchor.constraint(equalTo: scrollContent.trailingAnchor, constant: 16).isActive = true
+		labelGenres.trailingAnchor.constraint(equalTo: scrollContent.trailingAnchor, constant: -16).isActive = true
 		labelGenres.leadingAnchor.constraint(equalTo: scrollContent.leadingAnchor, constant: 16).isActive = true
 
 		// Episodes Stack
 		episodesStack.topAnchor.constraint(equalTo: labelGenres.bottomAnchor, constant: 25).isActive = true
-		episodesStack.trailingAnchor.constraint(equalTo: scrollContent.trailingAnchor, constant: 16).isActive = true
+		episodesStack.trailingAnchor.constraint(equalTo: scrollContent.trailingAnchor, constant: -16).isActive = true
 		episodesStack.leadingAnchor.constraint(equalTo: scrollContent.leadingAnchor, constant: 16).isActive = true
 		episodesStack.bottomAnchor.constraint(lessThanOrEqualTo: scrollContent.bottomAnchor).isActive = true
 
@@ -118,6 +118,7 @@ class DetailView: BaseView {
 		episodes.forEach {
 			let label = UILabel()
 			label.text = "\($0.info): \($0.name)"
+			label.lineBreakMode = .byTruncatingTail
 			episodesStack.addArrangedSubview(label)
 		}
 	}

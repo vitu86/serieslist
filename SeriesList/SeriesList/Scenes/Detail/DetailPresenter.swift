@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class DetailPresenter {
 	private let service: Service
@@ -40,7 +41,9 @@ extension DetailPresenter: DetailPresenterType {
 					self?.adaptAndShow(episodes: episodes)
 
 				case .failure:
-					self?.controller?.showError()
+					self?.controller?.showError(L10n.string(for: "ErrorDetailFetch")) {
+						self?.getShowDetail()
+					}
 				}
 			}
 		}

@@ -10,11 +10,10 @@ import UIKit
 protocol BaseControllerType {
 	func showLoading()
 	func hideLoading()
-	func showError()
+	func showError(_ message: String, tryAgainFunction: (() -> Void)?)
 }
 
 protocol BaseViewType {
 	func showLoading()
 	func hideLoading()
-	func showError()
 }

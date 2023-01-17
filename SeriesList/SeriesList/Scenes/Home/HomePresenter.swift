@@ -14,6 +14,7 @@ class HomePresenter {
 	private let service: Service
 	private let adapter: HomeAdapterType
 	private var source: [TVShow] = []
+	private var currentPage = 1
 
 	init(service: Service = .shared,
 		 adapter: HomeAdapterType = HomeAdapter()
@@ -23,7 +24,7 @@ class HomePresenter {
 	}
 
 	private func adaptAndShow(shows: [TVShow]) {
-		source = shows
+		source.append(contentsOf: shows)
 		controller?.update(list: adapter.adapt(model: source))
 	}
 }
@@ -35,10 +36,29 @@ extension HomePresenter: HomePresenterType {
 	}
 
 	func getShowsList() {
-		if service.isFirstPage {
+		if currentPage == 1 {
 			controller?.showLoading()
+			source = []
 		}
-		service.getTVShowsList { [weak self] result in
+		service.getTVShowsList(page: currentPage) { [weak self] result in
+			DispatchQueue.main.async {
+				switch result {
+				case let .success(shows):
+					self?.currentPage += 1
+					self?.adaptAndShow(shows: shows)
+
+				case .failure:
+					self?.controller?.showError()
+				}
+			}
+		}
+	}
+
+	func searchShows(_ query: String) {
+		controller?.showLoading()
+		source = []
+		currentPage = 1
+		service.searchForShow(with: query) { [weak self] result in
 			DispatchQueue.main.async {
 				switch result {
 				case let .success(shows):

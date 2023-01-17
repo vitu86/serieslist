@@ -48,7 +48,7 @@ class HomeViewTableHandler: NSObject {
 	func updateSource(_ newSource: [HomeViewModel]) {
 		tableView?.tableFooterView = nil
 		if newSource.isEmpty {return }
-		source.append(contentsOf: newSource)
+		source = newSource
 		tableView?.reloadData()
 	}
 
@@ -80,10 +80,10 @@ extension HomeViewTableHandler: UITableViewDataSource {
 		cell.bind(to: source[indexPath.row])
 
 		if indexPath.row >= source.count - 2, tableView.tableFooterView?.isHidden ?? true {
-			onEndReached?()
 			tableView.tableFooterView = loadingContainer
 			tableView.tableFooterView?.isHidden = false
 			activityIndicator.startAnimating()
+			onEndReached?()
 		}
 
 		return cell

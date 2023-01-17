@@ -13,7 +13,6 @@ class Service {
 	private init() {}
 
 	private var requestManager: RequestManagerType = RequestManager()
-	private var currentPage = 1
 	private var hasMorepage = true
 	private var isLoading = false
 
@@ -21,20 +20,17 @@ class Service {
 		self.requestManager = requestManager
 	}
 
-	var isFirstPage: Bool { currentPage == 1 }
-
-	func getTVShowsList(completion: @escaping (Result<[TVShow], NetworkError>) -> Void) {
-		if isLoading || !hasMorepage {
+	func getTVShowsList(page: Int, completion: @escaping (Result<[TVShow], NetworkError>) -> Void) {
+		guard !isLoading && hasMorepage else {
 			completion(.success([]))
 			return
 		}
 
 		isLoading = true
 
-		let endpoint = Endpoints.showsList(page: currentPage)
+		let endpoint = Endpoints.showsList(page: page)
 		requestManager.makeRequest(endpoint) { [weak self] (result: Result<[TVShow], NetworkError>) -> Void in
 			if case let .success(showsList) = result {
-				self?.currentPage += 1
 				self?.hasMorepage = !showsList.isEmpty
 			}
 			completion(result)

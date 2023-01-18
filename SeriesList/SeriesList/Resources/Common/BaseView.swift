@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class BaseView: UIView {
+class BaseView: UIView {
 
 	private lazy var loadingView: LoadingView = {
 		let view = LoadingView()

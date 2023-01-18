@@ -42,7 +42,15 @@ final class DetailView: BaseView {
 		let label = UILabel()
 		label.font = UIFont.systemFont(ofSize: 15)
 		label.numberOfLines = 0
-		label.lineBreakMode = .byTruncatingTail
+		label.adjustsFontSizeToFitWidth = false
+		label.translatesAutoresizingMaskIntoConstraints = false
+		return label
+	}()
+
+	private let labelSummary: UILabel = {
+		let label = UILabel()
+		label.font = UIFont.systemFont(ofSize: 17)
+		label.numberOfLines = 0
 		label.adjustsFontSizeToFitWidth = false
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
@@ -70,6 +78,7 @@ final class DetailView: BaseView {
 		scrollContent.addSubview(imageView)
 		scrollContent.addSubview(labelName)
 		scrollContent.addSubview(labelGenres)
+		scrollContent.addSubview(labelSummary)
 		scrollContent.addSubview(episodesStack)
 		scroll.addSubview(scrollContent)
 		addSubview(scroll)
@@ -106,8 +115,13 @@ final class DetailView: BaseView {
 		labelGenres.trailingAnchor.constraint(equalTo: scrollContent.trailingAnchor, constant: -16).isActive = true
 		labelGenres.leadingAnchor.constraint(equalTo: scrollContent.leadingAnchor, constant: 16).isActive = true
 
+		// Summary
+		labelSummary.topAnchor.constraint(equalTo: labelGenres.bottomAnchor, constant: 10).isActive = true
+		labelSummary.trailingAnchor.constraint(equalTo: scrollContent.trailingAnchor, constant: -16).isActive = true
+		labelSummary.leadingAnchor.constraint(equalTo: scrollContent.leadingAnchor, constant: 16).isActive = true
+
 		// Episodes Stack
-		episodesStack.topAnchor.constraint(equalTo: labelGenres.bottomAnchor, constant: 25).isActive = true
+		episodesStack.topAnchor.constraint(equalTo: labelSummary.bottomAnchor, constant: 25).isActive = true
 		episodesStack.trailingAnchor.constraint(equalTo: scrollContent.trailingAnchor, constant: -16).isActive = true
 		episodesStack.leadingAnchor.constraint(equalTo: scrollContent.leadingAnchor, constant: 16).isActive = true
 		episodesStack.bottomAnchor.constraint(lessThanOrEqualTo: scrollContent.bottomAnchor).isActive = true
@@ -130,6 +144,7 @@ extension DetailView: DetailViewType {
 		imageView.loadImage(show.imageUrl)
 		labelName.text = show.name
 		labelGenres.text = show.genres
+		labelSummary.text = show.summary.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
 		addEpisodes(show.episodes)
 	}
 }

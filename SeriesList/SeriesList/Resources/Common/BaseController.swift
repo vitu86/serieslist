@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class BaseController: UIViewController {
+class BaseController: UIViewController {
 	init() {
 		super.init(nibName: nil, bundle: nil)
 	}

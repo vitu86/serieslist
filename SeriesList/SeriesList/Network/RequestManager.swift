@@ -26,6 +26,12 @@ enum NetworkError: String, Error {
 
 final class RequestManager: RequestManagerType {
 
+	private let session: URLSessionProtocol
+
+	init(session: URLSessionProtocol = URLSession.shared) {
+		self.session = session
+	}
+
 	private let decoder: JSONDecoder = {
 		let decoder = JSONDecoder()
 		decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -38,7 +44,7 @@ final class RequestManager: RequestManagerType {
 			return
 		}
 
-		URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+		session.dataTask(with: url) { [weak self] data, _, error in
 			if let error = error {
 				completion(.failure(NetworkError(error)))
 				return
@@ -58,3 +64,9 @@ final class RequestManager: RequestManagerType {
 		}.resume()
 	}
 }
+
+protocol URLSessionProtocol {
+	func dataTask(with url: URL, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
+}
+
+extension URLSession: URLSessionProtocol {}

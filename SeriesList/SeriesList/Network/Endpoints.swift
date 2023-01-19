@@ -5,7 +5,7 @@
 //  Created by Vitor Costa on 09/01/23.
 //
 
-struct Endpoint {
+struct Endpoint: Equatable {
 	let url: String
 }
 

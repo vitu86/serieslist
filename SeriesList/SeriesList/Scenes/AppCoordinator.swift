@@ -15,7 +15,9 @@ enum Route {
 final class AppCoordinator {
 	var navigation: UINavigationController? {
 		didSet {
-			route(.home)
+			if ProcessInfo.processInfo.environment["IS_RUNNING_TESTS"] != "YES" {
+				route(.home)
+			}
 		}
 	}
 

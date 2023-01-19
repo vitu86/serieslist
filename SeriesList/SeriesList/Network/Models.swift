@@ -5,7 +5,7 @@
 //  Created by Vitor Costa on 09/01/23.
 //
 
-struct TVShow: Decodable {
+struct TVShow: Codable, Equatable {
 	let id: Int64
 	let name: String
 	let image: Image?
@@ -13,18 +13,18 @@ struct TVShow: Decodable {
 	let summary: String?
 }
 
-struct Episode: Decodable {
+struct Episode: Codable, Equatable {
 	let name: String
 	let number: Int64
 	let season: Int64
 }
 
-struct SearchResult: Decodable {
+struct SearchResult: Codable, Equatable {
 	let score: Double
 	let show: TVShow
 }
 
-struct Image: Decodable {
+struct Image: Codable, Equatable {
 	let medium: String
 	let original: String
 }

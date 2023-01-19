@@ -10,30 +10,76 @@ import XCTest
 
 final class ServiceTests: XCTestCase {
 
-	var sut: Service!
-	var requestManagerSpy: RequestManagerType!
+	var requestManagerSpy: RequestManagerSpy!
 
 	override func setUpWithError() throws {
-		sut = Service.shared
+		requestManagerSpy = RequestManagerSpy()
+		Service.shared.updateManager(requestManagerSpy)
 	}
 
 	override func tearDownWithError() throws {
-		// Put teardown code here. This method is called after the invocation of each test method in the class.
+		requestManagerSpy = nil
 	}
 
-	func testExample() throws {
-		// This is an example of a functional test case.
-		// Use XCTAssert and related functions to verify your tests produce the correct results.
-		// Any test you write for XCTest can be annotated as throws and async.
-		// Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-		// Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-	}
-
-	func testPerformanceExample() throws {
-		// This is an example of a performance test case.
-		self.measure {
-			// Put the code you want to measure the time of here.
+	func testGetTVShowsList() {
+		Service.shared.getTVShowsList(page: 1) {
+			if case let .success(result) = $0 {
+				XCTAssertEqual(result, .stub())
+			}
 		}
+
+		XCTAssertEqual(requestManagerSpy.callMakeRequestEndpoint, Endpoints.showsList())
+
+		// Simulate am empty response from requestmanager
+		requestManagerSpy.returnEmpty = true
+		Service.shared.getTVShowsList(page: 1) { _ in }
+
+		// When has no more pages
+		requestManagerSpy.returnEmpty = false
+		Service.shared.getTVShowsList(page: 1) {
+			if case let .success(result) = $0 {
+				XCTAssertEqual(result, [])
+			}
+		}
+
+		XCTAssertEqual(requestManagerSpy.callMakeRequestEndpoint, Endpoints.showsList())
 	}
 
+	func testGetShowEpisodes() {
+		Service.shared.getShowEpisodes(showId: 1) {
+			if case let .success(result) = $0 {
+				XCTAssertEqual(result, .stub())
+			}
+		}
+
+		XCTAssertEqual(requestManagerSpy.callMakeRequestEndpoint, Endpoints.getEpisodies(from: 1))
+	}
+
+	func testSearchForShowt() {
+		// With filled param
+		Service.shared.searchForShow(with: "query") {
+			if case let .success(result) = $0 {
+				XCTAssertEqual(result, .stub())
+			}
+		}
+		XCTAssertEqual(requestManagerSpy.callMakeRequestEndpoint, Endpoints.searchShows(query: "query"))
+
+		// With empty param
+		Service.shared.searchForShow(with: "") {
+			if case let .success(result) = $0 {
+				XCTAssertEqual(result, .stub())
+			}
+		}
+		XCTAssertEqual(requestManagerSpy.callMakeRequestEndpoint, Endpoints.searchShows(query: ""))
+
+		// With error
+		requestManagerSpy.errorToReturn = .generic
+		Service.shared.searchForShow(with: "") {
+			if case let .failure(error) = $0 {
+				XCTAssertEqual(error, .generic)
+			}
+		}
+		XCTAssertEqual(requestManagerSpy.callMakeRequestEndpoint, Endpoints.searchShows(query: ""))
+
+	}
 }

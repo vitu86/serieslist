@@ -39,7 +39,6 @@ final class ImageDownloader: ImageDownloaderType {
 	static let shared = ImageDownloader()
 	private init() {}
 
-
 	func downloadImage(path: String, completion: @escaping ImageResult) {
 
 		guard let url = URL(string: path) else {

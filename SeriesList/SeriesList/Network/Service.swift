@@ -8,7 +8,6 @@
 import Foundation
 
 protocol ServiceType {
-	func updateManager(_ requestManager: RequestManagerType)
 	func getTVShowsList(page: Int, completion: @escaping (Result<[TVShow], NetworkError>) -> Void)
 	func getShowEpisodes(showId: Int64, completion: @escaping (Result<[Episode], NetworkError>) -> Void)
 	func searchForShow(with query: String, completion: @escaping (Result<[TVShow], NetworkError>) -> Void)
@@ -25,10 +24,6 @@ final class Service  {
 }
 
 extension Service: ServiceType {
-	func updateManager(_ requestManager: RequestManagerType) {
-		self.requestManager = requestManager
-	}
-
 	func getTVShowsList(page: Int, completion: @escaping (Result<[TVShow], NetworkError>) -> Void) {
 		guard !isLoading && hasMorepage else {
 			completion(.success([]))

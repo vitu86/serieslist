@@ -39,21 +39,28 @@ final class RequestManager: RequestManagerType {
 
 		URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
 			if let error = error {
-				completion(.failure(NetworkError(error)))
+				DispatchQueue.main.async {
+					completion(.failure(NetworkError(error)))
+				}
 				return
 			}
 
 			guard let data = data else {
-				completion(.failure(.missingData))
+				DispatchQueue.main.async {
+					completion(.failure(.missingData))
+				}
 				return
 			}
 
 			guard let result = try? self?.decoder.decode(T.self, from: data) else {
-				completion(.failure(.decode))
+				DispatchQueue.main.async {
+					completion(.failure(.decode))
+				}
 				return
 			}
-
-			completion(.success(result))
+			DispatchQueue.main.async {
+				completion(.success(result))
+			}
 		}.resume()
 	}
 }

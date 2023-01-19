@@ -9,14 +9,14 @@ import Foundation
 import UIKit
 
 final class DetailPresenter {
-	private let service: Service
+	private let service: ServiceType
 	private let adapter: DetailAdapterType
 	private let show: TVShow
 
 	weak var controller: DetailControllerType?
 
 	init(
-		service: Service = .shared,
+		service: ServiceType = Service.shared,
 		adapter: DetailAdapterType = DetailAdapter(),
 		show: TVShow
 	) {
@@ -34,16 +34,14 @@ extension DetailPresenter: DetailPresenterType {
 	func getShowDetail() {
 		controller?.showLoading()
 		service.getShowEpisodes(showId: show.id) { [weak self] result in
-			DispatchQueue.main.async {
-				self?.controller?.hideLoading()
-				switch result {
-				case let .success(episodes):
-					self?.adaptAndShow(episodes: episodes)
+			self?.controller?.hideLoading()
+			switch result {
+			case let .success(episodes):
+				self?.adaptAndShow(episodes: episodes)
 
-				case .failure:
-					self?.controller?.showError(L10n.string(for: "ErrorDetailFetch")) {
-						self?.getShowDetail()
-					}
+			case .failure:
+				self?.controller?.showError(L10n.string(for: "ErrorDetailFetch")) {
+					self?.getShowDetail()
 				}
 			}
 		}

@@ -41,16 +41,14 @@ extension HomePresenter: HomePresenterType {
 			source = []
 		}
 		service.getTVShowsList(page: currentPage) { [weak self] result in
-			DispatchQueue.main.async {
-				switch result {
-				case let .success(shows):
-					self?.currentPage += 1
-					self?.adaptAndShow(shows: shows)
+			switch result {
+			case let .success(shows):
+				self?.currentPage += 1
+				self?.adaptAndShow(shows: shows)
 
-				case .failure:
-					self?.controller?.showError(L10n.string(for: "ErrorShowsFetch")) {
-						self?.getShowsList()
-					}
+			case .failure:
+				self?.controller?.showError(L10n.string(for: "ErrorShowsFetch")) {
+					self?.getShowsList()
 				}
 			}
 		}
@@ -61,15 +59,13 @@ extension HomePresenter: HomePresenterType {
 		source = []
 		currentPage = 1
 		service.searchForShow(with: query) { [weak self] result in
-			DispatchQueue.main.async {
-				switch result {
-				case let .success(shows):
-					self?.adaptAndShow(shows: shows)
+			switch result {
+			case let .success(shows):
+				self?.adaptAndShow(shows: shows)
 
-				case .failure:
-					self?.controller?.showError(L10n.string(for: "ErrorSearch")) {
-						self?.searchShows(query)
-					}
+			case .failure:
+				self?.controller?.showError(L10n.string(for: "ErrorSearch")) {
+					self?.searchShows(query)
 				}
 			}
 		}

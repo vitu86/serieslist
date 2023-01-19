@@ -21,7 +21,7 @@ extension TVShow {
 
 extension Array where Element == TVShow {
 	static func stub() -> [TVShow] {
-		(0 ..< 5).map { .stub(id: $0, name: "Name \($0)") }
+		(1 ..< 5).map { .stub(id: $0, name: "Name \($0)") }
 	}
 }
 

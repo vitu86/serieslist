@@ -19,6 +19,6 @@ extension Episode {
 
 extension Array where Element == Episode {
 	static func stub() -> [Episode] {
-		(0 ..< 5).map { .stub(name: "Name ep \($0)", number: $0) }
+		(1 ..< 5).map { .stub(name: "Name ep \($0)", number: $0) }
 	}
 }

@@ -10,7 +10,7 @@
 extension DetailViewModel {
 	static func stub(
 		name: String = "Name 1",
-		imageUrl: String = "ImageUrl",
+		imageUrl: String = "original url",
 		genres: String = "action - romance",
 		summary: String = "summary",
 		episodes: [Episode] = .stub()
@@ -34,15 +34,15 @@ extension Array where Element == DetailViewModel {
 }
 
 extension DetailViewModel.Episode {
-	static func stub(name: String = "Name Ep", info: String = "SE1 X EP1") -> DetailViewModel.Episode {
+	static func stub(name: String = "Name Ep", info: String = "SE 01 X EP 01") -> DetailViewModel.Episode {
 		.init(name: name, info: info)
 	}
 }
 
 extension Array where Element == DetailViewModel.Episode {
 	static func stub() -> [DetailViewModel.Episode] {
-		(1 ..< 6).map {
-			.stub(name: "Name \($0)", info: "SE1 X EP\($0)")
+		(1 ..< 5).map {
+			.stub(name: "Name ep \($0)", info: "SE 01 X EP 0\($0)")
 		}
 	}
 }

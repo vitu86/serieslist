@@ -6,7 +6,7 @@ Just open the SeriesList.xcodeproj and you are free to go.
 
 ## Using
 - Only Native iOS code, no third party libraries
-- MVVM
+- MVP
 - Coordinator
 - XCTests for unit tests
 - Async image download

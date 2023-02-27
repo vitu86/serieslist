@@ -2,19 +2,14 @@
 List of TV Series using TVMaze API :)
 
 ## Running
-Make sure you have ```xcodegen``` and ```swiftlint``` installed, and then...
-
-Just run ```sh starh.sh``` on terminal.
+Just open the SeriesList.xcodeproj and you are free to go.
 
 ## Using
+- Only Native iOS code, no third party libraries
 - MVVM
-- [swiftgen](https://github.com/SwiftGen/SwiftGen)
-- [xcodegen](https://github.com/yonaskolb/XcodeGen)
-- [Swiftlint](https://github.com/realm/SwiftLint)
-- [TinyConstraints](https://github.com/roberthein/TinyConstraints)
-- [XCoordinator](https://github.com/quickbirdstudios/XCoordinator)
-- [CocoaPods](https://github.com/CocoaPods/CocoaPods)
-- [AlamoFire](https://github.com/Alamofire/Alamofire)
-- [AlamoFire Image](https://github.com/Alamofire/AlamofireImage)
-- [swiftlint](https://github.com/realm/SwiftLint)
-- [RxSwift](https://github.com/ReactiveX/RxSwift)
+- Coordinator
+- XCTests for unit tests
+- Async image download
+- Async info download
+- Selfload imageview
+- Cache control for images
